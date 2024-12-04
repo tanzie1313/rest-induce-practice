@@ -15,7 +15,7 @@
     </nav>
     <!-- Main Content -->
      <div class="container">
-        <form action="" class="col s12">
+        <form action="/books/<%= book.id %>?_method=PUT" method="POST" class="col s12">
             <!--title field-->
             <div class="row">
                 <div class="input-field col s12">
@@ -29,6 +29,9 @@
                     <input type="text" name="title" id="title" value="<%= book.author %>" required>
                     <label for="title">Author</label>
              <!--submit button-->
+             <div class="row center-align">
+                <button type="submit" class="btn wave-effect waves-light teal">Update</button>
+             </div>
         </form>
      </div>
     

@@ -91,12 +91,12 @@ app.delete('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
     const bookIndex = books.findIndex(book => book.id === bookId);
     if (bookIndex !== -1) {
-        const deletedBook = books.splice(bookIndex, 1); // Remove the book
-        res.json({ message: "Book deleted successfully", book: deletedBook[0] });
+        books.splice(bookIndex, 1);
     } else {
-        res.status(404).json({ message: "Book not found" });
+        res.status(404).render('404/notFound', { title: 'Book Not Found' });
     }
-});
+    res.status(200).redirect('/books');
+})
 
 // ********************
 //    LISTENNER
