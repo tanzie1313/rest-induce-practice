@@ -50,7 +50,7 @@ app.post('/books', (req, res) => {
         author: req.body.author || "new author"
     }
     books.push(newBook);
-    res.status(201).json({ ...newBook, message: "Book Created Successfully." })
+    res.status(201).redirect('/books');
 })
 
 
@@ -58,9 +58,9 @@ app.post('/books', (req, res) => {
 app.get('/books/:id', (req, res) => {
     const book = books.find(book => book.id === parseInt(req.params.id));
     if (book) {
-        res.json(book)
+        res.render('books/show', { title: "Book Details", book })
     } else {
-        res.status(404).json({ message: "Book not found" })
+        res.status(404).render('404/not found', { title: "Book not found" })
     }
 })
 
@@ -70,7 +70,8 @@ app.put('/books/:id', (req, res) => {
     const bookIndex = books.findIndex(book => book.id === bookId)
     if (bookIndex !== -1) {
         books[bookIndex] = { ...books[bookIndex], ...req.body }
-        res.json({ message: "Book updated successfully", book: books[bookIndex] })
+        // res.json({ message: "Book updated successfully", book: books[bookIndex] })
+        res.status
     } else {
         res.send("Book not found")
     }

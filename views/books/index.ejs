@@ -20,7 +20,7 @@
         <ul class="collection">
             <% for( let index = 0; index < books.length; index++ ) { %>
                 <li class="collection-item">
-            <a href=""><strong><%= books[index].title %></strong> by <%= books[index].author %></a>
+            <a href="/books/<%= books[index].id%>"><strong><%= books[index].title %></strong> by <%= books[index].author %></a>
             </li>
             <% } %>
         </ul>
