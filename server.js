@@ -63,6 +63,15 @@ app.get('/books/:id', (req, res) => {
         res.status(404).render('404/not found', { title: "Book not found" })
     }
 })
+app.get('/books/:id/edit', (req, res) => {
+    const book = books.find(book => book.id === parseInt(req.params.id));
+    if (book) {
+        res.render('books/edit', { title: 'Edit Book', book });
+    } else {
+        res.status(404).render('404/notFound', { title: 'Book Not Found!' })
+    }
+})
+
 
 // EDIT
 app.put('/books/:id', (req, res) => {
@@ -71,9 +80,9 @@ app.put('/books/:id', (req, res) => {
     if (bookIndex !== -1) {
         books[bookIndex] = { ...books[bookIndex], ...req.body }
         // res.json({ message: "Book updated successfully", book: books[bookIndex] })
-        res.status
+        res.status(202).redirect('/books')
     } else {
-        res.send("Book not found")
+        res.status(404).render('404/not found', { title: "Book not found" })
     }
 })
 

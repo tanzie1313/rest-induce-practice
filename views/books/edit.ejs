@@ -3,9 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <%- include('../partials/head') %>
+    <title>Edit Page</title>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">📚 Edit Book</a>
+        </div>
+    </nav>
+    <!-- Main Content -->
+     <div class="container">
+        <form action="" class="col s12">
+            <!--title field-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" name="title" id="title" value="<%= book.title %>" required>
+                    <label for="title">Title</label>
+                </div>
+            </div>
+            <!--author field-->
+            <div class="row">
+                <div class="input-field col s12">
+                    <input type="text" name="title" id="title" value="<%= book.author %>" required>
+                    <label for="title">Author</label>
+             <!--submit button-->
+        </form>
+     </div>
     
 </body>
 </html>
