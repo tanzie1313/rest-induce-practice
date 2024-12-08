@@ -1,10 +1,19 @@
 
+require('dotenv').config()
 const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override')
 const books = require('./data/books');
 const app = express();
-const path = require('path')
+const path = require('path');
+const Book = require('./models/book');
+const mongoose = require('mongoose');
+// ==================
+// CONFIGURE MONGOOSE
+// ==================
+// getting-started.js
+require('./config/database');
+
 
 
 // ********************
@@ -42,6 +51,15 @@ app.get('/books/new', (req, res) => {
     res.render('books/new', { title: 'New Book' })
 });
 
+app.post('/seed', async (req, res) => {
+    try {
+        await Book.insertMany(books);
+        res.status(201).send('Books seeded successfully')
+    } catch (error) {
+        console.error(error.message)
+        res.status(404).send('Error seeding books')
+    }
+})
 // POST
 app.post('/books', (req, res) => {
     const newBook = {
@@ -50,7 +68,7 @@ app.post('/books', (req, res) => {
         author: req.body.author || "new author"
     }
     books.push(newBook);
-    res.status(201).redirect('/books');
+    res.status(201).redirect('/books')
 })
 
 
@@ -58,11 +76,12 @@ app.post('/books', (req, res) => {
 app.get('/books/:id', (req, res) => {
     const book = books.find(book => book.id === parseInt(req.params.id));
     if (book) {
-        res.render('books/show', { title: "Book Details", book })
+        res.render('books/show', { title: 'Book Details', book })
     } else {
-        res.status(404).render('404/not found', { title: "Book not found" })
+        res.status(404).render('404/notFound', { title: "Book not found" })
     }
 })
+
 app.get('/books/:id/edit', (req, res) => {
     const book = books.find(book => book.id === parseInt(req.params.id));
     if (book) {
@@ -71,20 +90,19 @@ app.get('/books/:id/edit', (req, res) => {
         res.status(404).render('404/notFound', { title: 'Book Not Found!' })
     }
 })
-
-
 // EDIT
+// / Update - Update a book
 app.put('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
-    const bookIndex = books.findIndex(book => book.id === bookId)
+    const bookIndex = books.findIndex(book => book.id === bookId);
     if (bookIndex !== -1) {
-        books[bookIndex] = { ...books[bookIndex], ...req.body }
-        // res.json({ message: "Book updated successfully", book: books[bookIndex] })
-        res.status(202).redirect('/books')
+        books[bookIndex] = { ...books[bookIndex], ...req.body };
+        res.status(200).redirect(`/books`);
+        // res.render('bookUpdated', { title: 'Book Updated', book: books[bookIndex] });
     } else {
-        res.status(404).render('404/not found', { title: "Book not found" })
+        res.status(404).render('404/notFound', { title: 'Book Not Found' });
     }
-})
+});
 
 // DELETE
 app.delete('/books/:id', (req, res) => {
@@ -95,8 +113,8 @@ app.delete('/books/:id', (req, res) => {
     } else {
         res.status(404).render('404/notFound', { title: 'Book Not Found' });
     }
-    res.status(200).redirect('/books');
-})
+    res.redirect('/books');
+});
 
 // ********************
 //    LISTENNER
