@@ -6,13 +6,13 @@ const methodOverride = require('method-override')
 const books = require('./data/books');
 const app = express();
 const path = require('path');
-const Book = require('./models/book');
+const Book = require('./models/books');
 const mongoose = require('mongoose');
 // ==================
 // CONFIGURE MONGOOSE
 // ==================
 // getting-started.js
-require('./config/database');
+require('./configs/database');
 
 
 
@@ -34,12 +34,14 @@ app.use(express.static(path.join(__dirname, 'public')))
 //      ROUTES (I.N.D.U.C.E)
 // ***************************
 
-
+//Seed route
+app.use('/', require('./routes/seed'));
 // Index
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {git 
     res.render('home')
 });
-
+//Home Route
+app.use('/', require('./routes/home'));
 // Index
 app.get('/books', (req, res) => {
     res.render('books', { title: "Book List", books })
