@@ -36,10 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //Seed route
 app.use('/', require('./routes/seed'));
-// Index
-app.get('/', (req, res) => {git 
-    res.render('home')
-});
+
 //Home Route
 app.use('/', require('./routes/home'));
 // Index
@@ -122,7 +119,7 @@ app.delete('/books/:id', (req, res) => {
 //    LISTENNER
 // ********************
 
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`🎧 Server is running on http://localhost:${PORT}`);
 })
