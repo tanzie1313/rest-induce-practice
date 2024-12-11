@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,27 +14,28 @@
             <a href="/" class="brand-logo center">📚 Edit Book</a>
         </div>
     </nav>
-    <!-- Main Content -->
+    <!-- TODO:  main content -->
      <div class="container">
         <form action="/books/<%= book.id %>?_method=PUT" method="POST" class="col s12">
-            <!--title field-->
-            <div class="row">
+            <!-- Title field -->
+             <div class="row">
                 <div class="input-field col s12">
-                    <input type="text" name="title" id="title" value="<%= book.title %>" required>
-                    <label for="title">Title</label>
+                   <input type="text" name="title" id="title" value="<%= book.title %>" required>
+                   <label for="title">Title</label>
                 </div>
-            </div>
-            <!--author field-->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" name="title" id="title" value="<%= book.author %>" required>
-                    <label for="title">Author</label>
-             <!--submit button-->
-             <div class="row center-align">
-                <button type="submit" class="btn wave-effect waves-light teal">Update</button>
              </div>
+             <!-- Author field -->
+               <div class="row">
+                <div class="input-field col s12">
+                   <input type="text" name="author" id="author" value="<%= book.author %>" required>
+                   <label for="author">Author</label>
+                </div>
+             </div>
+              <!-- Submit button -->
+               <div class="row center-align">
+            <button type="submit" class="btn wave-effect wave-light teal">Update</button>
+               </div>
         </form>
      </div>
-    
 </body>
 </html>
